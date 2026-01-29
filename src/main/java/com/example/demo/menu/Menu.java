@@ -1,5 +1,7 @@
 package com.example.demo.menu;
 
+import com.example.demo.model.User;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,7 @@ public class Menu {
                 .collect(Collectors.toMap(MenuAction::number, a -> a));
     }
 
-    public void start() {
+    public void start(User currentUser) {
         boolean running = true;
         while (running) {
             show();
@@ -24,7 +26,7 @@ public class Menu {
             MenuAction action = actionMap.get(choice);
             if (action != null) {
                 try {
-                    running = action.execute();
+                    running = action.execute(currentUser);
                 } catch (Exception e) {
                     System.out.println("Error executing action: " + e.getMessage());
                 }

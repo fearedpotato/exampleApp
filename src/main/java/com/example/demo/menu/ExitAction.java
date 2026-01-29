@@ -1,5 +1,7 @@
 package com.example.demo.menu;
 
+import com.example.demo.model.User;
+
 @MenuEntry(menus = {"main", "products", "categories"})
 public class ExitAction implements MenuAction {
 
@@ -10,8 +12,7 @@ public class ExitAction implements MenuAction {
     public String label() { return "Exit"; }
 
     @Override
-    public boolean execute() {
-        System.out.println("Exiting...");
+    public boolean execute(User currentUser) {
         return false;
     }
 }

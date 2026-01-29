@@ -3,6 +3,7 @@ package com.example.demo.menu.category.actions;
 import com.example.demo.menu.MenuAction;
 import com.example.demo.menu.MenuEntry;
 import com.example.demo.model.Category;
+import com.example.demo.model.User;
 import com.example.demo.service.CategoryService;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,7 @@ public class ListCategoriesMenuAction implements MenuAction {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(User currentUser) {
         List<Category> list = categoryService.getAllCategories();
 
         if (!list.isEmpty()) {

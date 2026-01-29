@@ -2,12 +2,14 @@ package com.example.demo.menu.category.actions;
 
 import com.example.demo.menu.MenuAction;
 import com.example.demo.menu.MenuEntry;
+import com.example.demo.model.Role;
+import com.example.demo.model.User;
 import com.example.demo.service.CategoryService;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@MenuEntry(menus = {"categories"})
+@MenuEntry(menus = {"categories"}, roles = {Role.ROLE_ADMIN})
 @Component
 public class RemoveCategoryMenuAction implements MenuAction {
     private final CategoryService categoryService;
@@ -28,7 +30,12 @@ public class RemoveCategoryMenuAction implements MenuAction {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(User currentUser) {
+        if (currentUser.getRole() != Role.ROLE_ADMIN) {
+            System.out.println("Access Denied");
+            return true;
+        }
+
         categoryService.getAllCategories().forEach(System.out::println);
 
         int id = -1;

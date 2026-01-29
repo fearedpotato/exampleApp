@@ -1,5 +1,6 @@
 package com.example.demo.menu;
 
+import com.example.demo.model.Role;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.ElementType;
@@ -12,11 +13,15 @@ import java.lang.annotation.Target;
 @Component
 public @interface MenuEntry {
     /**
-     * "main"           ->  main menu
      * "products"       ->  products menu
      * "categories"     ->  categories menu
-     *
-     * @return
      */
     String[] menus() default {};
+
+    /**
+     * ROLE_USER        -> User menu
+     * ROLE_ADMIN       -> Admin menu
+     * Defaulted to ROLE_USER to avoid accidental admin-only menus access.
+     */
+    Role[] roles() default { Role.ROLE_USER };
 }

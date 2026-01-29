@@ -3,13 +3,15 @@ package com.example.demo.menu.product.actions;
 import com.example.demo.menu.MenuAction;
 import com.example.demo.menu.MenuEntry;
 import com.example.demo.model.Category;
+import com.example.demo.model.Role;
+import com.example.demo.model.User;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@MenuEntry(menus = {"products"})
+@MenuEntry(menus = {"products"}, roles = {Role.ROLE_ADMIN})
 @Component
 public class AddProductAction implements MenuAction{
     private final ProductService productService;
@@ -32,7 +34,12 @@ public class AddProductAction implements MenuAction{
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(User currentUser) {
+        if (currentUser.getRole() != Role.ROLE_ADMIN) {
+            System.out.println("Access Denied");
+            return true;
+        }
+
         System.out.println("\n=== Add Product ===");
 
         System.out.println("Type the product's name: ");
