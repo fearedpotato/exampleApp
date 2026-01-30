@@ -34,14 +34,20 @@ public class DemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String @NonNull ... args) {
-		User currentUser = loginConsole.login();
-		userContext.setCurrentUser(currentUser);
+		while (true) {
+			User currentUser = loginConsole.login();
+			userContext.setCurrentUser(currentUser);
 
-		Menu mainMenu = menuConfig.createMenu(currentUser, "main");
-		CategoriesMenuAction categoriesMenu = new CategoriesMenuAction(context);
-		ProductsMenuAction productsMenu = new ProductsMenuAction(context);
+			new CategoriesMenuAction(context);
+			new ProductsMenuAction(context);
 
-		mainMenu.start(currentUser);
+			Menu mainMenu = menuConfig.createMenu(currentUser, "main");
+			mainMenu.start(currentUser);
+
+			if (!userContext.isLogged()) continue;
+			break;
+		}
+
 
 	}
 }

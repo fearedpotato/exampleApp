@@ -21,7 +21,7 @@ public class ListCategoriesMenuAction implements MenuAction {
 
     @Override
     public int number() {
-        return 2;
+        return 1;
     }
 
     @Override

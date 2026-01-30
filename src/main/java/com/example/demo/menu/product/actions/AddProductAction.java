@@ -25,7 +25,7 @@ public class AddProductAction implements MenuAction{
 
     @Override
     public int number() {
-        return 1;
+        return 2;
     }
 
     @Override

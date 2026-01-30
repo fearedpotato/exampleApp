@@ -21,7 +21,7 @@ public class AddCategoryMenuAction implements MenuAction {
 
     @Override
     public int number() {
-        return 1;
+        return 2;
     }
 
     @Override

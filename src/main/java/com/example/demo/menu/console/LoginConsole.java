@@ -18,6 +18,7 @@ public class LoginConsole {
     }
 
     public User login() {
+        System.out.println("\nWelcome!\n");
         while (true) {
             System.out.print("Username: ");
             String username = scanner.nextLine();

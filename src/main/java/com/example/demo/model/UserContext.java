@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserContext {
     private User currentUser;
+    private boolean isLogged = false;
 
     public UserContext() {
 
@@ -16,5 +17,10 @@ public class UserContext {
 
     public UserContext(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+        this.isLogged = currentUser != null;
     }
 }
