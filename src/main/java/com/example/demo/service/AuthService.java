@@ -17,6 +17,6 @@ public class AuthService {
 
     public Optional<User> login(String username, String password) {
         return userRepository.findByUsername(username)
-                .filter(u -> u.getPassword().equals(password));
+                .filter(u -> u.matchesPassword(password));
     }
 }

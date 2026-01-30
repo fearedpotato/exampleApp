@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
+import com.example.demo.util.PasswordUtil;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
 @Entity
+@Getter
 @Table(name = "users")
 public class User {
 
@@ -12,37 +15,32 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @Column(unique = true)
     private String username;
 
-    private String password;
+    @Getter(AccessLevel.PACKAGE)
+    @Column(nullable = false)
+    private String passwordHash;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public User() {
+    public User() {}
 
-    }
-
-    public User(String username, String password, Role role) {
+    public User(String username, String rawPassword, Role role) {
         this.username = username;
-        this.password = password;
+        this.passwordHash = PasswordUtil.hash(rawPassword);
         this.role = role;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void changePassword(String rawPassword) {
+        this.passwordHash = PasswordUtil.hash(rawPassword);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public boolean matchesPassword(String rawPassword) {
+        return PasswordUtil.matches(rawPassword, this.passwordHash);
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }
